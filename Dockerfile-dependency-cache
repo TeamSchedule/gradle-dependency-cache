@@ -1,0 +1,7 @@
+FROM gradle:7.4.2-jdk17-alpine as dependencies
+WORKDIR /app
+COPY ./ ./
+RUN gradle dependencies --no-daemon -i --stacktrace
+
+FROM gradle:7.4.2-jdk17-alpine
+COPY --from=dependencies /root/.gradle /root/.gradle
